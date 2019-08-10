@@ -11,18 +11,23 @@
 	],
 	"activationEvents": [
 		"onCommand:extension.evalInput",
-		"onCommand:extension.evalSelected"
+		"onCommand:extension.evalSelectedSingleLine",
+		"onCommand:extension.evalSelectedMultiLine"
 	],
 	"main": "./extension.js",
 	"contributes": {
 		"commands": [
 			{
 				"command": "extension.evalInput",
-				"title": "Eval: Input Box"
+				"title": "Eval: from Input Box"
 			},
 			{
-				"command": "extension.evalSelected",
-				"title": "Eval: Selected"
+				"command": "extension.evalSelectedSingleLine",
+				"title": "Eval: from Selected(Single Line)"
+			},
+			{
+				"command": "extension.evalSelectedMultiLine",
+				"title": "Eval: from Selected(Multi Line)"
 			}
 		]
 	},

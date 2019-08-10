@@ -8,6 +8,27 @@ function safeEvalSingleLine(expr) {
 }
 
 /**
+ * @param {string} expr
+ */
+function safeEvalMultiLine(expr) {
+	return Function(expr)();
+}
+
+/**
+ * @param {string} expr
+ * @param {bool}   isSingleLine
+ */
+function showResult(expr, isMultiLine) {
+	try {
+		const result = (isMultiLine ? safeEvalMultiLine(expr) : safeEvalSingleLine(expr));
+		vscode.window.showInformationMessage(`${result}`);
+	} catch(ex) {
+		vscode.window.showErrorMessage(ex.message);
+		console.log(ex.stack);
+	}
+}
+
+/**
  * @param {vscode.ExtensionContext} context
  */
 function activate(context) {
@@ -15,22 +36,34 @@ function activate(context) {
 	context.subscriptions.push(
 		vscode.commands.registerCommand('extension.evalInput', function () {
 			vscode.window.showInputBox({
-				placeHolder: "e.g.",
+				placeHolder: "e.g. 100+3, 0xffffffff-1, (10).toString(16)",
 			}).then(str => {
-				try {
-					const result = safeEvalSingleLine(str);
-					vscode.window.showInformationMessage(`${result}`);
-				} catch(ex) {
-					vscode.window.showErrorMessage(ex.message);
-					console.log(ex.stack);
-				}
+				showResult(str, false);
 			});
 		})
 	);
 
 	context.subscriptions.push(
-		vscode.commands.registerCommand('extension.evalSelected', function () {
-			vscode.window.showInformationMessage('Hello World!');
+		vscode.commands.registerCommand('extension.evalSelectedSingleLine', function () {
+			const editor = vscode.window.activeTextEditor;
+			if (!editor) {
+				vscode.window.showErrorMessage("評価する処理を選択した状態でコマンドを実行してください");
+				return;
+			}
+			const str = editor.document.getText(editor.selection);
+			showResult(str, false);
+		})
+	);
+
+	context.subscriptions.push(
+		vscode.commands.registerCommand('extension.evalSelectedMultiLine', function () {
+			const editor = vscode.window.activeTextEditor;
+			if (!editor) {
+				vscode.window.showErrorMessage("評価する処理を選択した状態でコマンドを実行してください");
+				return;
+			}
+			const str = editor.document.getText(editor.selection);
+			showResult(str, true);
 		})
 	);
 
