@@ -1,8 +1,8 @@
 {
 	"name": "eval",
 	"displayName": "Eval",
-	"description": "js eval",
-	"version": "0.0.1",
+	"description": "Quickly evaluate Javascript",
+	"version": "0.0.2",
 	"publisher": "kamiyaowl",
 	"repository": "https://github.com/kamiyaowl/vscode-eval",
 	"engines": {
