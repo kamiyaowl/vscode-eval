@@ -3,6 +3,8 @@
 	"displayName": "Eval",
 	"description": "js eval",
 	"version": "0.0.1",
+	"publisher": "kamiyaowl",
+	"repository": "https://github.com/kamiyaowl/vscode-eval",
 	"engines": {
 		"vscode": "^1.37.0"
 	},
