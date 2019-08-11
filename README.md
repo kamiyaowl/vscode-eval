@@ -1,4 +1,4 @@
-# vscode-eval
+# [vscode-eval](https://marketplace.visualstudio.com/items?itemName=kamiyaowl.eval)
 
 選択範囲、もしくはテキストボックスで入力した内容を評価します。
 
